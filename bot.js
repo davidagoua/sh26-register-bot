@@ -115,7 +115,7 @@ client.on('message', async (msg) => {
         case 'IDLE':
             if (text.toLowerCase().includes('inscr') || text.toLowerCase() === 'bonjour') {
                 session.step = 'NOM';
-                await msg.reply("Bonjour ! Débutons votre inscription. Quel est votre **Nom de famille** ?");
+                await msg.reply("*Sacerdoce des Heritiers - S'26* \n\n Bonjour ! Bienvenu dans le processus d'inscription du S'26 Débutons votre inscription. Quel est votre **Nom de famille** ?");
             } else {
                 await msg.reply("Bonjour ! Tapez *'Inscription'* pour démarrer.");
             }
@@ -241,7 +241,7 @@ client.on('message', async (msg) => {
                     // --- ENVOI DU PDF SUR WHATSAPP ---
                     const pdfMedia = MessageMedia.fromFilePath(pdfPath);
                     await client.sendMessage(chatId, pdfMedia, { 
-                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien. Veuillez soldez le montant de votre participation sur le lien: https://pay.nafolo.co?mode=linkpay&client=davidchristianagoua` 
+                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.\n\nVeuillez soldez le montant de votre participation sur le lien: https://pay.nafolo.co?mode=linkpay&client=davidchristianagoua` 
                     });
 
                     // Réinitialisation de la session
