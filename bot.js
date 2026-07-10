@@ -185,12 +185,11 @@ client.on('message', async (msg) => {
                     session.data.participantId = `SH-26-${randomId}`; // ID Dynamique
                     session.step = 'CONFIRMATION';
 
-
-                    await msg.reply("Veuillez envoyer le reçu de paiement.");
-
                     const recap = `📋 *Récapitulatif :*\n\n` +
                                   `• *Nom :* ${session.data.nom}\n` +
                                   `• *Prénom :* ${session.data.prenom}\n` +
+                                  `• *Date de naissance :* ${session.data.dateNaissance}\n` +
+                                  `• *Lieu de naissance :* ${session.data.lieuNaissance}\n` +
                                   `• *Téléphone :* ${session.data.telephone}\n\n` +
                                   `Est-ce correct ? Répondez par *OUI* ou *NON*.`;
                     
