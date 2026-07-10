@@ -155,6 +155,8 @@ client.on('message', async (msg) => {
             await msg.reply("Quel est votre **Numéro de téléphone** de contact ?");
             break;
 
+        
+
         case 'TELEPHONE':
             session.data.telephone = text;
             session.step = 'PHOTO';
@@ -183,6 +185,9 @@ client.on('message', async (msg) => {
                     session.data.participantId = `SH-26-${randomId}`; // ID Dynamique
                     session.step = 'CONFIRMATION';
 
+
+                    await msg.reply("Veuillez envoyer le reçu de paiement.");
+
                     const recap = `📋 *Récapitulatif :*\n\n` +
                                   `• *Nom :* ${session.data.nom}\n` +
                                   `• *Prénom :* ${session.data.prenom}\n` +
@@ -200,6 +205,7 @@ client.on('message', async (msg) => {
             }
             break;
 
+        
         case 'CONFIRMATION':
             if (text.toLowerCase() === 'oui') {
                 await msg.reply("⏳ Génération de votre fiche d'inscription en cours, veuillez patienter...");
@@ -235,7 +241,7 @@ client.on('message', async (msg) => {
                     // --- ENVOI DU PDF SUR WHATSAPP ---
                     const pdfMedia = MessageMedia.fromFilePath(pdfPath);
                     await client.sendMessage(chatId, pdfMedia, { 
-                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.` 
+                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien. Veuillez soldez le montant de votre participation sur le lien: https://pay.nafolo.co?mode=linkpay&client=davidchristianagoua` 
                     });
 
                     // Réinitialisation de la session
