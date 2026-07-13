@@ -29,6 +29,9 @@ client.on('ready', () => {
 
 const sessions = {};
 
+// Fonction utilitaire pour ajouter du temps de latence
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 // Fonction pour générer le code HTML personnalisé à partir de vos variables
 function genererHtmlFiche(data) {
     // Note : Pour l'image de profil et le logo, convertissez-les idéalement en base64 
@@ -96,6 +99,9 @@ function genererHtmlFiche(data) {
 }
 
 client.on('message', async (msg) => {
+    // Temps de latence de 5 secondes entre les réponses
+    await delay(5000);
+
     const chatId = msg.from;
     const text = msg.body ? msg.body.trim() : '';
 
@@ -115,7 +121,7 @@ client.on('message', async (msg) => {
         case 'IDLE':
             if (text.toLowerCase().includes('inscr') || text.toLowerCase() === 'bonjour') {
                 session.step = 'NOM';
-                await msg.reply("*Sacerdoce des Heritiers - S'26* \n\n Bonjour ! Bienvenu dans le processus d'inscription du S'26 Débutons votre inscription. Quel est votre **Nom de famille** ?");
+                await msg.reply("*Sacerdoce des Heritiers - S'26* \n\n Bonjour ! Bienvenu dans le processus d'inscription du S'26.\n\nDébutons votre inscription. Quel est votre **Nom de famille** ?");
             } else {
                 await msg.reply("Bonjour ! Tapez *'Inscription'* pour démarrer.");
             }
