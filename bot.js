@@ -246,7 +246,7 @@ client.on('message', async (msg) => {
                     // --- ENVOI DU PDF SUR WHATSAPP ---
                     const pdfMedia = MessageMedia.fromFilePath(pdfPath);
                     await client.sendMessage(chatId, pdfMedia, { 
-                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.\n\nVeuillez soldez le montant de votre participation sur le lien: https://pay.nafolo.co?mode=linkpay&client=davidchristianagoua` 
+                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.\n\n Pour finaliser votre inscription, veuillez soldez le montant de votre participation sur le lien: https://pay.nafolo.co/?mode=linkpay&client=shwave\n\nMerci et à très bientôt!` 
                     });
 
                     // Réinitialisation de la session
