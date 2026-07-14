@@ -246,7 +246,7 @@ client.on('message', async (msg) => {
                     // --- ENVOI DU PDF SUR WHATSAPP ---
                     const pdfMedia = MessageMedia.fromFilePath(pdfPath);
                     await client.sendMessage(chatId, pdfMedia, { 
-                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.\n\n Pour finaliser votre inscription, veuillez soldez le montant de votre participation par wave sur le 0101495342 à très bientôt!` 
+                        caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.\n\n Pour finaliser votre inscription, veuillez soldez le montant de votre participation (25.500 FCFA) par wave sur le 0101495342 à très bientôt!` 
                     });
 
                     // Réinitialisation de la session
