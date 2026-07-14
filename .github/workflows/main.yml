@@ -1,0 +1,22 @@
+name: deploy bot
+env:
+  SSH_PASSWORD: "${{ secrets.PAYOHADA_UBUNTU_PASSWORD }}"
+
+on:
+  push:
+    branches:
+      -  main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: connect ssh and launch
+        uses: xiehuan123/xiehuan-ssh@master
+        with:
+          host: "payohada.cloud"
+          user: ubuntu
+          pass: "${{ env.SSH_PASSWORD }}"
+          script: |
+            cd /home/ubuntu/sh26-register-bot
+            ./run.sh
