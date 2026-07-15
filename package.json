@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@sentry/node": "^10.65.0",
     "fs-extra": "^11.3.6",
     "mime-types": "^3.0.2",
     "qrcode-terminal": "^0.12.0",
