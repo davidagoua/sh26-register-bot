@@ -172,9 +172,21 @@ client.on('message', async (msg) => {
         case 'PHOTO':
             if (msg.hasMedia) {
                 try {
-                    const media = await msg.downloadMedia();
+                    // Add a timeout for the download
+                    const media = await Promise.race([
+                        msg.downloadMedia(),
+                        new Promise((_, reject) => 
+                            setTimeout(() => reject(new Error('Media download timeout')), 30000)
+                        )
+                    ]);
+                    
+                    if (!media || !media.mimetype) {
+                        await msg.reply("Erreur: Impossible de lire le fichier. Veuillez réessayer.");
+                        return;
+                    }
+                    
                     if (!media.mimetype.startsWith('image/')) {
-                        await msg.reply("Fichier invalide, envoyez une image.");
+                        await msg.reply("Veuillez envoyer une image (JPEG, PNG, etc.).");
                         return;
                     }
 
@@ -182,31 +194,48 @@ client.on('message', async (msg) => {
                     const filename = `${chatId.replace('@c.us', '')}_${Date.now()}.${extension}`;
                     const filePath = path.join(UPLOAD_DIR, filename);
                     
-                    await fs.writeFile(filePath, media.data, 'base64');
+                    // Handle base64 data properly
+                    if (media.data) {
+                        await fs.writeFile(filePath, media.data, 'base64');
+                    } else {
+                        await msg.reply("Erreur lors du téléchargement de l'image. Réessayez.");
+                        return;
+                    }
                     
-                    // Générer un ID Participant unique à 4 chiffres pour le badge
+                    // Rest of your code...
                     const randomId = Math.floor(1000 + Math.random() * 9000);
-                    
                     session.data.photoPath = filePath;
-                    session.data.participantId = `SH-26-${randomId}`; // ID Dynamique
+                    session.data.participantId = `SH-26-${randomId}`;
                     session.step = 'CONFIRMATION';
 
                     const recap = `📋 *Récapitulatif :*\n\n` +
-                                  `• *Nom :* ${session.data.nom}\n` +
-                                  `• *Prénom :* ${session.data.prenom}\n` +
-                                  `• *Date de naissance :* ${session.data.dateNaissance}\n` +
-                                  `• *Lieu de naissance :* ${session.data.lieuNaissance}\n` +
-                                  `• *Téléphone :* ${session.data.telephone}\n\n` +
-                                  `Est-ce correct ? Répondez par *OUI* ou *NON*.`;
+                                `• *Nom :* ${session.data.nom}\n` +
+                                `• *Prénom :* ${session.data.prenom}\n` +
+                                `• *Date de naissance :* ${session.data.dateNaissance}\n` +
+                                `• *Lieu de naissance :* ${session.data.lieuNaissance}\n` +
+                                `• *Téléphone :* ${session.data.telephone}\n\n` +
+                                `Est-ce correct ? Répondez par *OUI* ou *NON*.`;
                     
                     await msg.reply(recap);
 
                 } catch (error) {
-                    console.error(error);
-                    await msg.reply("Erreur lors de la réception de la photo. Réessayez.");
+                    console.error('Media download error:', error.message);
+                    console.error('Full error:', error);
+                    
+                    // More specific error messages
+                    if (error.message.includes('timeout')) {
+                        await msg.reply("Le téléchargement de l'image a pris trop de temps. Veuillez réessayer avec une image plus petite.");
+                    } else if (error.message.includes('Protocol error')) {
+                        await msg.reply("Erreur de communication. Veuillez réessayer dans quelques instants.");
+                    } else {
+                        await msg.reply("❌ Erreur lors de la réception de la photo. Veuillez réessayer ou réduire la taille de l'image.");
+                    }
+                    
+                    // Don't reset the session, let user try again
+                    session.step = 'PHOTO';
                 }
             } else {
-                await msg.reply("Veuillez envoyer une photo.");
+                await msg.reply("📸 Veuillez envoyer une photo d'identité (format image).");
             }
             break;
 
