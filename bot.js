@@ -165,8 +165,16 @@ client.on('message', async (msg) => {
 
         case 'TELEPHONE':
             session.data.telephone = text;
-            session.step = 'PHOTO';
-            await msg.reply("📸 Veuillez envoyer votre **Photo d'identité**.");
+            session.step = 'CONFIRMATION';
+            const recap = `📋 *Récapitulatif :*\n\n` +
+                    `• *Nom :* ${session.data.nom}\n` +
+                    `• *Prénom :* ${session.data.prenom}\n` +
+                    `• *Date de naissance :* ${session.data.dateNaissance}\n` +
+                    `• *Lieu de naissance :* ${session.data.lieuNaissance}\n` +
+                    `• *Téléphone :* ${session.data.telephone}\n\n` +
+                    `Est-ce correct ? Répondez par *OUI* ou *NON*.`;
+                    
+                await msg.reply(recap);
             break;
 
         case 'PHOTO':
