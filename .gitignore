@@ -6,3 +6,4 @@ inscriptions_photos
 inscriptions_pdf
 node_modules
 .env
+utilisateurs.json
