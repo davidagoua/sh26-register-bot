@@ -79,7 +79,7 @@ function genererHtmlFiche(data) {
         <div id="section-pdf" class="p-3 border rounded m-3">
             <div class="text-center">
                 <!-- Remplacer par l'URL de votre logo en ligne ou une image base64 -->
-                <h2 style="margin:0; color:#111;">Sacerdoce des Héritiers - S'24</h2>
+                <h2 style="margin:0; color:#111;">Sacerdoce des Héritiers - S'26</h2>
             </div>
             <hr>
             <div class="row">
