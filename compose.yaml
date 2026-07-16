@@ -1,0 +1,9 @@
+services:
+  bot:
+    build: 
+      context: .
+    volumes:
+      - ./inscriptions_pdf:/app/inscriptions_pdf
+      - ./inscriptions_photos:/app/inscriptions_photos
+      - ./utilisateurs.json:/app/utilisateurs.json
+    restart: unless-stopped
