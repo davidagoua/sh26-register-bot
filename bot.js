@@ -185,18 +185,7 @@ client.on('message', async (msg) => {
                         return;
                     }
                     
-                    // Add a timeout for the download
-                    const media = await Promise.race([
-                        msg.downloadMedia(),
-                        new Promise((_, reject) => 
-                            setTimeout(() => reject(new Error('Media download timeout')), 30000)
-                        )
-                    ]);
-                    
-                    if (!media || !media.mimetype) {
-                        await msg.reply("Erreur: Impossible de lire le fichier. Veuillez réessayer.");
-                        return;
-                    }
+                
                     
                     if (!media.mimetype.startsWith('image/')) {
                         await msg.reply("Veuillez envoyer une image (JPEG, PNG, etc.).");
