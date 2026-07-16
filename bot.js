@@ -311,15 +311,7 @@ client.on('message', async (msg) => {
                         caption: `🎉 Inscription validée ! Voici votre fiche d'inscription officielle pour l'entretien.\n\n Pour finaliser votre inscription, veuillez soldez le montant de votre participation (25.500 FCFA) par wave sur le 0101495342 à très bientôt!` 
                     });
 
-                    // --- ENVOI DE L'AFFICHE DE CONFIRMATION ---
-                    const affichePath = path.join(__dirname, 'affiche.jpeg');
-                    if (fs.existsSync(affichePath)) {
-                        await delay(2000); // Petite pause de 2 secondes pour espacer les messages
-                        const afficheMedia = MessageMedia.fromFilePath(affichePath);
-                        await client.sendMessage(chatId, afficheMedia);
-                    } else {
-                        console.warn(`[Warning] Le fichier affiche.jpeg est introuvable à l'adresse : ${affichePath}`);
-                    }
+                  
 
                     // --- ENVOI DE L'AFFICHE DE CONFIRMATION ---
                     const affichePath = path.join(__dirname, 'affiche.jpeg');
