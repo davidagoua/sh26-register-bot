@@ -177,7 +177,7 @@ client.on('message', async (msg) => {
                         await msg.reply("Fichier invalide, envoyez une image.");
                         return;
                     }
-
+                    /*
                     const extension = mime.extension(media.mimetype);
                     const filename = `${chatId.replace('@c.us', '')}_${Date.now()}.${extension}`;
                     const filePath = path.join(UPLOAD_DIR, filename);
@@ -189,6 +189,7 @@ client.on('message', async (msg) => {
                     
                     session.data.photoPath = filePath;
                     session.data.participantId = `SH-26-${randomId}`; // ID Dynamique
+                    */
                     session.step = 'CONFIRMATION';
 
                     const recap = `📋 *Récapitulatif :*\n\n` +
